@@ -1,12 +1,24 @@
 package main
-import "fmt"
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func homePage(page http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(page, "Page is open!!!")
+}
+
+func contactsPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Contacts page!!!")
+}
+
+func handleRequest() {
+	http.HandleFunc("/", homePage)
+	http.HandleFunc("/contacts/", contactsPage)
+	http.ListenAndServe(":8080", nil)
+}
 
 func main() {
-//  fmt.Println("Привет, Денис!!!", "Привет, Данил!!!", "Привет, Даша!!!")
-  //fmt.Println("Привет, Денис!!!")
-  //fmt.Println("Привет, Денис!!!")
-  var var1 int = 1e6
-  var var2 int = 1000000
-  var varSum = var1 + var2
-  fmt.Println("сумма двух чисел =", varSum)
+	handleRequest()
 }
